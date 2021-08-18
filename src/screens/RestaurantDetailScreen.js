@@ -8,15 +8,17 @@ const RestaurantDetailScreen = ({ navigation }) => {
 
   const getResult = async (id) => {
     const response = await yelp.get(`/${id}`);
+    console.log(id);
+    console.log(response.data);
     setResult(response.data);
   };
   useEffect(() => {
     getResult(id);
   }, []);
 
-  return result == null ? (
+  return result != null ? (
     <View>
-      <Text>{result.name}</Text>
+      <Text style={styles.name}>{result.name}</Text>
       <FlatList
         keyExtractor={(p) => p}
         data={result.photos}
@@ -33,7 +35,16 @@ const RestaurantDetailScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   image: {
     height: 200,
-    width: 300,
+    width: 400,
+    margin: 5,
+    borderRadius: 5,
+  },
+  name: {
+      fontSize:16,
+      fontWeight: "bold",
+      marginLeft:5,
+      alignSelf:"center"
+      
   },
 });
 export default RestaurantDetailScreen;
